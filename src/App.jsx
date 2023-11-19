@@ -3,6 +3,8 @@ import { QR25D, QRBubble, QRDsj, QRLine, QRNormal, QRRandRect } from 'react-qrbt
 import html2canvas from 'html2canvas';
 // eslint-disable-next-line no-unused-vars
 import React, { useCallback, useMemo, useRef, useState } from 'react';
+
+const baseUrl = import.meta.env.VITE_URL;
 const map = {
     1: QRNormal,
     2: QR25D,
@@ -86,14 +88,11 @@ function App() {
         const search = new URLSearchParams();
         search.append('tel', tel);
         search.append('message', message);
-        const url = `https://movecar.blackcell.fun?${encodeURIComponent(search.toString())}`;
+        const url = `${baseUrl}?${search.toString()}`;
         return (
             <div>
                 <div ref={codeRef}>
                     <Com value={url}></Com>
-                </div>
-                <div className="my-5">
-                    <Selector value={picType} onChange={onChange} options={typeOptions} />
                 </div>
                 <Button block type="submit" onClick={download} color="primary" size="large">
                     下载
@@ -131,6 +130,9 @@ function App() {
                     <Selector options={options} />
                 </Form.Item>
             </Form>
+            <div className="my-5">
+                <Selector value={picType} onChange={onChange} options={typeOptions} />
+            </div>
             {getQrCode}
             <div className="flex mt-8 flex-col justify-center items-center gap-1 !text-default-600 dark:!text-default-500 font-extralight text-sm">
                 <p>
