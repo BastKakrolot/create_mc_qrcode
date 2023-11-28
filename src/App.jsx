@@ -87,7 +87,7 @@ function App() {
         const Com = map[style];
         const search = new URLSearchParams();
         search.append('tel', tel);
-        search.append('message', message);
+        message && search.append('message', message);
         const url = `${baseUrl}?${search.toString()}`;
         return (
             <div>
